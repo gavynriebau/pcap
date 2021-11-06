@@ -884,11 +884,11 @@ impl Capture<Inactive> {
     }
 
     /// Set the time stamp type to be used by a capture device.
-    #[cfg(libpcap_1_2_1)]
-    pub fn tstamp_type(self, tstamp_type: TimestampType) -> Capture<Inactive> {
-        unsafe { raw::pcap_set_tstamp_type(*self.handle, tstamp_type as _) };
-        self
-    }
+    // #[cfg(libpcap_1_2_1)]
+    // pub fn tstamp_type(self, tstamp_type: TimestampType) -> Capture<Inactive> {
+    //     unsafe { raw::pcap_set_tstamp_type(*self.handle, tstamp_type as _) };
+    //     self
+    // }
 
     /// Set promiscuous mode on or off. By default, this is off.
     pub fn promisc(self, to: bool) -> Capture<Inactive> {
@@ -909,10 +909,10 @@ impl Capture<Inactive> {
         // to be set on an active capture. See
         // https://www.tcpdump.org/manpages/pcap_set_immediate_mode.3pcap.html. Since we do not
         // expect pre-1.5.0 version on unix systems in the wild, we simply ignore those cases.
-        #[cfg(libpcap_1_5_0)]
-        unsafe {
-            raw::pcap_set_immediate_mode(*self.handle, to as _)
-        };
+        // #[cfg(libpcap_1_5_0)]
+        // unsafe {
+        //     raw::pcap_set_immediate_mode(*self.handle, to as _)
+        // };
 
         // In WinPcap we use `pcap_setmintocopy` as it does not have `pcap_set_immediate_mode`.
         #[cfg(all(windows, not(libpcap_1_5_0)))]
@@ -945,12 +945,12 @@ impl Capture<Inactive> {
         self
     }
 
-    /// Set the time stamp precision returned in captures.
-    #[cfg(libpcap_1_5_0)]
-    pub fn precision(self, precision: Precision) -> Capture<Inactive> {
-        unsafe { raw::pcap_set_tstamp_precision(*self.handle, precision as _) };
-        self
-    }
+    // /// Set the time stamp precision returned in captures.
+    // #[cfg(libpcap_1_5_0)]
+    // pub fn precision(self, precision: Precision) -> Capture<Inactive> {
+    //     unsafe { raw::pcap_set_tstamp_precision(*self.handle, precision as _) };
+    //     self
+    // }
 
     /// Set the snaplen size (the maximum length of a packet captured into the buffer).
     /// Useful if you only want certain headers, but not the entire packet.
